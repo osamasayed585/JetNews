@@ -13,18 +13,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoadingPage(modifier: Modifier = Modifier) {
+fun FullScreenLoading(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        CircularProgressIndicator()
         Text(
+            modifier = Modifier.padding(top = 10.dp),
             text = "Loading",
             color = MaterialTheme.colorScheme.primary,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
-        CircularProgressIndicator(Modifier.padding(top = 10.dp))
     }
 }

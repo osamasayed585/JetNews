@@ -1,16 +1,15 @@
 package com.droidos.home.data.di
 
 
+import com.droidos.common.di.DispatcherProvider
 import com.droidos.datastore.LocalDataStore
 import com.droidos.home.data.remote.ArticlesService
 import com.droidos.home.data.repository.ArticlesRepositoryImp
 import com.droidos.home.domain.repository.ArticlesRepository
-import com.droidos.common.di.DefaultDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
@@ -19,15 +18,15 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideMovieRepository(
+    fun provideArticlesRepository(
         articlesService: ArticlesService,
         preferences: LocalDataStore,
-        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
+        dispatcherProvider: DispatcherProvider
     ): ArticlesRepository {
         return ArticlesRepositoryImp(
             apiService = articlesService,
             preferences = preferences,
-            defaultDispatcher = defaultDispatcher
+            dispatcherProvider = dispatcherProvider
         )
     }
 
