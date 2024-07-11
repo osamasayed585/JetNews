@@ -1,7 +1,6 @@
-package com.droidos.jetnews.jetNews
+package com.droidos.navigation.jetNews
 
 import androidx.annotation.DrawableRes
-import com.droidos.jetcoffee.R
 
 enum class TopLevelDestination(
     @DrawableRes val selectedIcon: Int,

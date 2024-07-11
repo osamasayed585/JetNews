@@ -1,5 +1,5 @@
 
-package com.droidos.jetnews.units.networkMonitor
+package com.droidos.navigation.util.networkMonitor
 
 import kotlinx.coroutines.flow.Flow
 
