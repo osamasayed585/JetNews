@@ -5,9 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
-import com.droidos.jetnews.units.networkMonitor.NetworkMonitor
-import com.droidos.jetnews.jetNews.JetNewsApp
-import com.droidos.jetnews.ui.theme.JetNewsTheme
+import com.droidos.navigation.jetNews.MyJetNewsApp
+import com.droidos.navigation.util.networkMonitor.NetworkMonitor
+import com.muhammadsayed.design.theme.JetNewsTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetNewsTheme {
                 val navController = rememberNavController()
-                JetNewsApp(networkMonitor, navController)
+                MyJetNewsApp(networkMonitor, navController)
             }
         }
     }
