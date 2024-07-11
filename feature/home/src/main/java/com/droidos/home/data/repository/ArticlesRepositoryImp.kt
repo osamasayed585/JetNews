@@ -13,8 +13,9 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-class ArticlesRepositoryImp(
+class ArticlesRepositoryImp @Inject constructor(
     private val apiService: ArticlesService,
     private val preferences: LocalDataStore,
     private val defaultDispatcher: CoroutineDispatcher,
