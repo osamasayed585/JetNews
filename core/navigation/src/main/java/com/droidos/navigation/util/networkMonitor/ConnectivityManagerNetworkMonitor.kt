@@ -1,4 +1,4 @@
-package com.droidos.jetnews.units.networkMonitor
+package com.droidos.navigation.util.networkMonitor
 
 import android.content.Context
 import android.net.ConnectivityManager

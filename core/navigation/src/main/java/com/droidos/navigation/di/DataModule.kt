@@ -1,8 +1,8 @@
-package com.droidos.jetnews.di
+package com.droidos.navigation.di
 
 
-import com.droidos.jetnews.units.networkMonitor.ConnectivityManagerNetworkMonitor
-import com.droidos.jetnews.units.networkMonitor.NetworkMonitor
+import com.droidos.navigation.util.networkMonitor.ConnectivityManagerNetworkMonitor
+import com.droidos.navigation.util.networkMonitor.NetworkMonitor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
