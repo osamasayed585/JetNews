@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CircularProgress(isVisible: Boolean = false) {
+fun CircularProgress(isVisible: Boolean = true) {
     if (isVisible)
         CircularProgressIndicator(
             modifier = Modifier.size(20.dp),
