@@ -19,6 +19,7 @@ class CacheInterceptor(private val preferences: LocalDataStore) : Interceptor {
         val requestBuilder = chain.request().newBuilder().apply {
             token?.let { addHeader("Authorization", "Bearer $it") }
             language?.let { addHeader("lang", it) }
+            addHeader("Authorization", "Bearer 9a95acef21be4858a910e63a25ca0a5a")
             addHeader("Accept", "application/json")
         }
 

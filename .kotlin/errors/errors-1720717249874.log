@@ -1,0 +1,134 @@
+kotlin version: 2.0.0
+error message: org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error: Exception during IR lowering
+File being compiled: C:/Users/Usama/AndroidStudioProjects/JetNews2/feature/home/src/main/java/com/droidos/home/presentation/ArticlesScreen.kt
+The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:50)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException(CodegenUtil.kt:253)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException$default(CodegenUtil.kt:236)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:65)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:52)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:38)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:29)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:16)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompilerPhaseKt.invokeToplevel(CompilerPhase.kt:62)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.invokeCodegen(JvmIrCodegenFactory.kt:371)
+	at org.jetbrains.kotlin.codegen.CodegenFactory.generateModule(CodegenFactory.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.generateModuleInFrontendIRMode(JvmIrCodegenFactory.kt:433)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.generateCodeFromIr(jvmCompilerPipeline.kt:241)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.compileModulesUsingFrontendIrAndLightTree(jvmCompilerPipeline.kt:140)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:155)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:50)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:104)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:48)
+	at org.jetbrains.kotlin.cli.common.CLITool.exec(CLITool.kt:101)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:453)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:62)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.doCompile(IncrementalCompilerRunner.kt:506)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compileImpl(IncrementalCompilerRunner.kt:423)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally$lambda$9$compile(IncrementalCompilerRunner.kt:249)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally(IncrementalCompilerRunner.kt:267)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compile(IncrementalCompilerRunner.kt:120)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.execIncrementalCompiler(CompileServiceImpl.kt:676)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.access$execIncrementalCompiler(CompileServiceImpl.kt:92)
+	at org.jetbrains.kotlin.daemon.CompileServiceImpl.compile(CompileServiceImpl.kt:1661)
+	at jdk.internal.reflect.GeneratedMethodAccessor92.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN name:ArticlesRoute visibility:public modality:FINAL <> () returnType:kotlin.Unit
+  annotations:
+    Composable
+  BLOCK_BODY
+    VAR name:viewModel type:com.droidos.home.presentation.ArticleViewModel [val]
+      TYPE_OP type=com.droidos.home.presentation.ArticleViewModel origin=IMPLICIT_CAST typeOperand=com.droidos.home.presentation.ArticleViewModel
+        CALL 'public final fun hiltViewModel$default <VM> (viewModelStoreOwner: androidx.lifecycle.ViewModelStoreOwner?, key: kotlin.String?, $mask0: kotlin.Int, $handler: kotlin.Any?): VM of androidx.hilt.navigation.compose.HiltViewModelKt.hiltViewModel$default [inline] declared in androidx.hilt.navigation.compose.HiltViewModelKt' type=VM of androidx.hilt.navigation.compose.HiltViewModelKt.hiltViewModel$default origin=DEFAULT_DISPATCH_CALL
+          <VM>: com.droidos.home.presentation.ArticleViewModel
+          viewModelStoreOwner: COMPOSITE type=androidx.lifecycle.ViewModelStoreOwner? origin=DEFAULT_VALUE
+            CONST Null type=androidx.lifecycle.ViewModelStoreOwner? value=null
+          key: COMPOSITE type=kotlin.String? origin=DEFAULT_VALUE
+            CONST Null type=kotlin.String? value=null
+          $mask0: CONST Int type=kotlin.Int value=3
+          $handler: CONST Null type=kotlin.Any? value=null
+    VAR name:articles type:androidx.paging.compose.LazyPagingItems<com.droidos.home.domain.model.ArticleUIModel> [val]
+      TYPE_OP type=androidx.paging.compose.LazyPagingItems<com.droidos.home.domain.model.ArticleUIModel> origin=IMPLICIT_CAST typeOperand=androidx.paging.compose.LazyPagingItems<com.droidos.home.domain.model.ArticleUIModel>
+        CALL 'public final fun collectAsLazyPagingItems$default <T> (context: kotlin.coroutines.CoroutineContext?, $mask0: kotlin.Int, $handler: kotlin.Any?): androidx.paging.compose.LazyPagingItems<T of androidx.paging.compose.LazyPagingItemsKt.collectAsLazyPagingItems$default> declared in androidx.paging.compose.LazyPagingItemsKt' type=androidx.paging.compose.LazyPagingItems<T of androidx.paging.compose.LazyPagingItemsKt.collectAsLazyPagingItems$default> origin=DEFAULT_DISPATCH_CALL
+          <T>: com.droidos.home.domain.model.ArticleUIModel
+          $receiver: CALL 'public final fun <get-uiState> (): kotlinx.coroutines.flow.StateFlow<androidx.paging.PagingData<com.droidos.home.domain.model.ArticleUIModel>> declared in com.droidos.home.presentation.ArticleViewModel' type=kotlinx.coroutines.flow.StateFlow<androidx.paging.PagingData<com.droidos.home.domain.model.ArticleUIModel>> origin=GET_PROPERTY
+            $this: GET_VAR 'val viewModel: com.droidos.home.presentation.ArticleViewModel [val] declared in com.droidos.home.presentation.ArticlesScreenKt.ArticlesRoute' type=com.droidos.home.presentation.ArticleViewModel origin=null
+          context: COMPOSITE type=kotlin.coroutines.CoroutineContext? origin=DEFAULT_VALUE
+            CONST Null type=kotlin.coroutines.CoroutineContext? value=null
+          $mask0: CONST Int type=kotlin.Int value=1
+          $handler: CONST Null type=kotlin.Any? value=null
+    VAR name:articleState type:androidx.compose.foundation.lazy.LazyListState [val]
+      CALL 'public final fun rememberLazyListState$default (initialFirstVisibleItemIndex: kotlin.Int, initialFirstVisibleItemScrollOffset: kotlin.Int, $mask0: kotlin.Int, $handler: kotlin.Any?): androidx.compose.foundation.lazy.LazyListState declared in androidx.compose.foundation.lazy.LazyListStateKt' type=androidx.compose.foundation.lazy.LazyListState origin=DEFAULT_DISPATCH_CALL
+        initialFirstVisibleItemIndex: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+          CONST Int type=kotlin.Int value=0
+        initialFirstVisibleItemScrollOffset: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+          CONST Int type=kotlin.Int value=0
+        $mask0: CONST Int type=kotlin.Int value=3
+        $handler: CONST Null type=kotlin.Any? value=null
+    CALL 'public final fun ArticlesScreen (articles: androidx.paging.compose.LazyPagingItems<com.droidos.home.domain.model.ArticleUIModel>, articleState: androidx.compose.foundation.lazy.LazyListState): kotlin.Unit declared in com.droidos.home.presentation.ArticlesScreenKt' type=kotlin.Unit origin=null
+      articles: GET_VAR 'val articles: androidx.paging.compose.LazyPagingItems<com.droidos.home.domain.model.ArticleUIModel> [val] declared in com.droidos.home.presentation.ArticlesScreenKt.ArticlesRoute' type=androidx.paging.compose.LazyPagingItems<com.droidos.home.domain.model.ArticleUIModel> origin=null
+      articleState: GET_VAR 'val articleState: androidx.compose.foundation.lazy.LazyListState [val] declared in com.droidos.home.presentation.ArticlesScreenKt.ArticlesRoute' type=androidx.compose.foundation.lazy.LazyListState origin=null
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:50)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate$default(FunctionCodegen.kt:42)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethodNode(ClassCodegen.kt:385)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethod(ClassCodegen.kt:402)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generate(ClassCodegen.kt:169)
+	at org.jetbrains.kotlin.backend.jvm.FileCodegen.lower(JvmPhases.kt:41)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseBuildersKt.makeIrFilePhase$lambda$5(PhaseBuilders.kt:114)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseBuildersKt$createSimpleNamedCompilerPhase$1.phaseBody(PhaseBuilders.kt:71)
+	at org.jetbrains.kotlin.backend.common.phaser.SimpleNamedCompilerPhase.phaseBody(CompilerPhase.kt:226)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:62)
+	... 45 more
+Caused by: org.jetbrains.kotlin.codegen.CompilationException: Back-end (JVM) Internal error: Couldn't inline method call: CALL 'public final fun hiltViewModel$default <VM> (viewModelStoreOwner: androidx.lifecycle.ViewModelStoreOwner?, key: kotlin.String?, $mask0: kotlin.Int, $handler: kotlin.Any?): VM of androidx.hilt.navigation.compose.HiltViewModelKt.hiltViewModel$default [inline] declared in androidx.hilt.navigation.compose.HiltViewModelKt' type=VM of androidx.hilt.navigation.compose.HiltViewModelKt.hiltViewModel$default origin=DEFAULT_DISPATCH_CALL
+Method: null
+File is unknown
+The root cause java.lang.IllegalStateException was thrown at: org.jetbrains.kotlin.codegen.inline.SourceCompilerForInlineKt.getMethodNode(SourceCompilerForInline.kt:118)
+	at org.jetbrains.kotlin.codegen.inline.InlineCodegen.performInline(InlineCodegen.kt:65)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrInlineCodegen.genInlineCall(IrInlineCodegen.kt:162)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrInlineCallGenerator.genCall(IrInlineCallGenerator.kt:36)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:647)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitTypeOperator(ExpressionCodegen.kt:1121)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitTypeOperator(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrTypeOperatorCall.accept(IrTypeOperatorCall.kt:26)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:784)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.declarations.IrVariable.accept(IrVariable.kt:36)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:573)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:578)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:239)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:121)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:46)
+	... 55 more
+Caused by: java.lang.IllegalStateException: couldn't find inline method Landroidx/hilt/navigation/compose/HiltViewModelKt;.hiltViewModel$default(Landroidx/lifecycle/ViewModelStoreOwner;Ljava/lang/String;ILjava/lang/Object;)Landroidx/lifecycle/ViewModel;
+	at org.jetbrains.kotlin.codegen.inline.SourceCompilerForInlineKt.getMethodNode(SourceCompilerForInline.kt:118)
+	at org.jetbrains.kotlin.codegen.inline.SourceCompilerForInlineKt.loadCompiledInlineFunction(SourceCompilerForInline.kt:96)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrSourceCompilerForInline.compileInlineFunction(IrSourceCompilerForInline.kt:91)
+	at org.jetbrains.kotlin.codegen.inline.InlineCodegen.compileInline(InlineCodegen.kt:43)
+	at org.jetbrains.kotlin.codegen.inline.InlineCodegen.performInline(InlineCodegen.kt:51)
+	... 73 more
+
+
