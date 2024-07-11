@@ -1,6 +1,7 @@
 package com.droidos.network.di.di
 
 import android.content.Context
+import com.droidos.common.utils.Constants.BASE_URL
 import com.droidos.datastore.LocalDataStore
 import com.droidos.network.di.interceptors.CacheInterceptor
 import dagger.Module
@@ -69,7 +70,7 @@ object NetworkModule {
     @Singleton
     internal fun provideRetrofit(client: OkHttpClient, ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

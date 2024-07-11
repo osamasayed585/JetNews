@@ -20,12 +20,12 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideMovieRepository(
-        moviesService: ArticlesService,
+        articlesService: ArticlesService,
         preferences: LocalDataStore,
         @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
     ): ArticlesRepository {
         return ArticlesRepositoryImp(
-            apiService = moviesService,
+            apiService = articlesService,
             preferences = preferences,
             defaultDispatcher = defaultDispatcher
         )
