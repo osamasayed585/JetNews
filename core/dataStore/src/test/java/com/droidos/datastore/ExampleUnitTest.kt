@@ -1,4 +1,4 @@
-package com.droidos.navigation
+package com.droidos.datastore
 
 import org.junit.Test
 

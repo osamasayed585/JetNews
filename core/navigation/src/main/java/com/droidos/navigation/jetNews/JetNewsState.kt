@@ -1,4 +1,4 @@
-package com.droidos.jetnews.jetNews
+package com.droidos.navigation.jetNews
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -8,7 +8,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
-import com.droidos.jetnews.units.networkMonitor.NetworkMonitor
+import com.droidos.navigation.util.networkMonitor.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -16,16 +16,16 @@ import kotlinx.coroutines.flow.stateIn
 
 
 @Composable
-fun rememberJetCoffeeState(
+fun rememberJetNewsState(
     navController: NavHostController,
     networkMonitor: NetworkMonitor,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
 ) = remember(
     navController, networkMonitor, coroutineScope
-) { JetCoffeeState(navController, networkMonitor, coroutineScope) }
+) { JetNewsState(navController, networkMonitor, coroutineScope) }
 
 
-class JetCoffeeState(
+class JetNewsState(
     private val navController: NavHostController,
     networkMonitor: NetworkMonitor,
     coroutineScope: CoroutineScope,
