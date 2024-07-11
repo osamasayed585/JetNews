@@ -1,4 +1,4 @@
-package com.droidos.jetnews.jetNews
+package com.droidos.navigation.jetNews
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
@@ -11,14 +11,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.droidos.jetcoffee.R
-import com.droidos.jetnews.units.networkMonitor.NetworkMonitor
+import com.droidos.common.R
+import com.droidos.navigation.util.networkMonitor.NetworkMonitor
 
 @Composable
-fun JetNewsApp(
+fun MyJetNewsApp(
     networkMonitor: NetworkMonitor,
     navController: NavHostController,
-    appState: JetCoffeeState = rememberJetCoffeeState(
+    appState: JetNewsState = rememberJetNewsState(
         networkMonitor = networkMonitor,
         navController = navController
     ),
@@ -28,7 +28,7 @@ fun JetNewsApp(
     val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
     /**
-     *  Show a snackbar whenever there's a connection issue.
+     *  Show a snackbar whenever there's a connection issue.,
      */
     LaunchedEffect(isOffline) {
         if (isOffline) {
@@ -43,7 +43,7 @@ fun JetNewsApp(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { innerPadding ->
         innerPadding.apply {
-            JetNewsNavHost()
+            JetNewsNavHost(navController)
         }
     }
 
