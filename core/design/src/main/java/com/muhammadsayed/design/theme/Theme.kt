@@ -41,7 +41,7 @@ private val DarkColorScheme = lightColorScheme(
 )
 
 @Composable
-fun YassirMovieAppTheme(
+fun JetNewsTheme(
     darkTheme: Boolean = false,
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,

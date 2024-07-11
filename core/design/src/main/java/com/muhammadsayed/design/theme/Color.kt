@@ -2,6 +2,7 @@ package com.muhammadsayed.design.theme
 
 import androidx.compose.ui.graphics.Color
 
+
 val PrimaryColor = Color(0xFFFF5959)
 val SecondaryColor = Color(0xFFFFA4A2)
 val TertiaryColor = Color(0xFFFFCBC9)
