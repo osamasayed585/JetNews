@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.droidos.navigation"
+    namespace = "com.droidos.datastore"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -33,37 +33,14 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotlinCompiler.get()
-    }
 }
 
 dependencies {
 
     // visibility modules
-    implementation(project(":feature:home"))
-    implementation(project(":feature:details"))
     implementation(project(":core:common"))
 
-    // core
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose)
-
-    // compose
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-
-    // testing
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,11 +50,6 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-    // shared element transition
-    implementation(libs.androidx.foundation)
-
-
-    // coroutines
-    implementation(libs.kotlinx.coroutines.android)
-
+    // data store
+    implementation(libs.androidx.datastore.preferences)
 }

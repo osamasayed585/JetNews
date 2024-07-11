@@ -53,6 +53,11 @@ android {
 }
 
 dependencies {
+
+    // visibility modules
+    implementation(project(":core:design"))
+    implementation(project(":core:navigation"))
+
     // core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -88,4 +93,7 @@ dependencies {
 
     // coroutines
     implementation(libs.kotlinx.coroutines.android)
+
+    // timber
+    implementation(libs.timber)
 }
