@@ -2,17 +2,17 @@ package com.droidos.home.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.droidos.common.di.DispatcherProvider
 import com.droidos.common.utils.Constants.INITIAL_PAGE
 import com.droidos.home.data.model.beans.Article
 import com.droidos.home.data.remote.ArticlesService
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 class ArticleDataSource(
     private val apiService: ArticlesService,
     private val language: String,
     private val query: String,
-    private val defaultDispatcher: CoroutineDispatcher,
+    private val dispatcherProvider: DispatcherProvider,
 ) : PagingSource<Int, Article>() {
 
 
@@ -20,7 +20,7 @@ class ArticleDataSource(
         val page = params.key ?: INITIAL_PAGE
 
         return try {
-            withContext(defaultDispatcher) {
+            withContext(dispatcherProvider.default) {
                 val response = apiService.requestArticles(
                     query = query,
                     language = language,
