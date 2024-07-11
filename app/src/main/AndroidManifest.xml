@@ -17,8 +17,7 @@
         tools:targetApi="31">
         <activity
             android:name="com.droidos.jetnews.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.JetNews">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
