@@ -8,7 +8,7 @@ import com.droidos.home.presentation.ArticlesRoute
 const val ArticleRoute = "articlesScreen"
 
 fun NavGraphBuilder.articlesScreen(
-    onNavToDetails: (Int) -> Unit,
+    onNavToDetails: () -> Unit,
 ) {
     composable(ArticleRoute) {
         ArticlesRoute(onNavToDetails)
