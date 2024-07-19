@@ -7,11 +7,13 @@ import com.droidos.common.Language
 import com.droidos.common.di.DispatcherProvider
 import com.droidos.common.utils.Constants
 import com.droidos.datastore.LocalDataStore
+import com.droidos.home.data.mapper.toArticleUIModel
 import com.droidos.home.data.model.beans.Article
 import com.droidos.home.data.remote.ArticlesService
 import com.droidos.home.domain.repository.ArticlesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
