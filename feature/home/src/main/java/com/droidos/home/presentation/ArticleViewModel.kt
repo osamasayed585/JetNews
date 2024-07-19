@@ -40,8 +40,7 @@ class ArticleViewModel @Inject constructor(
 
 
     /**
-     * Requests articles based on the provided query.
-     *
+     * Requests articles based on the provided query
      * @param query The search query to use for fetching articles. Defaults to [Constants.ALL] to fetch all articles.
      */
     private fun requestArticles(query: String = Constants.ALL) {
