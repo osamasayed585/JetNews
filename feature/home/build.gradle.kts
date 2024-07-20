@@ -81,9 +81,6 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
-    //Coil
-    implementation(libs.coil.compose)
-
     // Paging 3
     implementation(libs.paging.runtime)
     implementation(libs.paging.compose)
