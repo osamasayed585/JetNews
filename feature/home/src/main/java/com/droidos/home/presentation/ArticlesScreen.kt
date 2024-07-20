@@ -1,9 +1,9 @@
 package com.droidos.home.presentation
 
 import android.content.res.Configuration
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,14 +18,9 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,21 +29,24 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import com.droidos.common.utils.Constants.DESCRIPTION_MAX_LINES
 import com.droidos.common.utils.Constants.TITLE_MAX_LINES
+import com.droidos.common.utils.formatTimeAgo
 import com.droidos.home.R
 import com.droidos.home.domain.model.ArticleUIModel
-import com.muhammadsayed.design.components.ErrorDialog
+import com.muhammadsayed.design.components.ErrorScreen
 import com.muhammadsayed.design.components.FullScreenLoading
+import com.muhammadsayed.design.components.LoadingImage
 import com.muhammadsayed.design.theme.JetNewsTheme
 import timber.log.Timber
 
 
 @Composable
-fun ArticlesRoute(onNavToDetails: () -> Unit) {
-    val viewModel: ArticleViewModel = hiltViewModel()
-    val articles = viewModel.uiState.collectAsLazyPagingItems()
+fun ArticlesRoute(
+    onNavToDetails: () -> Unit,
+    viewModel: ArticleViewModel = hiltViewModel(),
+) {
+    val articles = viewModel.articles.collectAsLazyPagingItems()
     val articleState: LazyListState = rememberLazyListState()
 
     ArticlesScreen(
@@ -64,7 +62,6 @@ fun ArticlesScreen(
     articleState: LazyListState,
     onNavToDetails: () -> Unit,
 ) {
-    var showDialog by remember { mutableStateOf(true) }
 
     LazyColumn(
         modifier = Modifier
@@ -85,8 +82,8 @@ fun ArticlesScreen(
 
         item {
             articles.apply {
-                when {
-                    loadState.append is LoadState.Loading -> {
+                when (loadState.append) {
+                    is LoadState.Loading -> {
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .padding(16.dp)
@@ -96,7 +93,9 @@ fun ArticlesScreen(
                         )
                     }
 
-                    loadState.append is LoadState.Error -> {
+                    is LoadState.NotLoading -> {}
+
+                    is LoadState.Error -> {
                         val error = articles.loadState.append as LoadState.Error
                         Timber.e("ArticlesScreen: ${error.error.localizedMessage}")
                         LimitedCard()
@@ -107,20 +106,20 @@ fun ArticlesScreen(
     }
 
     articles.apply {
-        when {
-            loadState.refresh is LoadState.Loading -> {
+        when (loadState.refresh) {
+            is LoadState.Loading -> {
                 FullScreenLoading(modifier = Modifier.fillMaxSize())
             }
 
-            loadState.refresh is LoadState.Error -> {
-                val error = articles.loadState.refresh as LoadState.Error
-                AnimatedVisibility(visible = showDialog) {
-                    ErrorDialog(errorMessage = error.error.localizedMessage!!,
-                        onRetryClick = { retry() },
-                        onDismiss = { showDialog = false })
-                }
+            is LoadState.NotLoading -> {}
 
+            is LoadState.Error -> {
+                ErrorScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    onRetry = { retry() }
+                )
             }
+
         }
     }
 
@@ -140,23 +139,46 @@ fun ArticleItem(uiState: ArticleUIModel, onCLick: () -> Unit) {
         ),
     ) {
 
-        AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current)
-                .data(uiState.image)
-                .crossfade(true)
-                .build(),
-            contentDescription = stringResource(R.string.this_is_an_image_of_article),
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth()
+        LoadingImage(
+            modifier = Modifier.fillMaxWidth(),
+            url = uiState.image,
+            description = stringResource(R.string.this_is_an_image_of_article),
         )
 
         Text(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp),
             text = uiState.title,
             maxLines = TITLE_MAX_LINES,
             style = MaterialTheme.typography.titleMedium
 
         )
+
+        Text(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            text = uiState.description,
+            maxLines = DESCRIPTION_MAX_LINES,
+            style = MaterialTheme.typography.bodyMedium
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            Text(
+                text = formatTimeAgo(uiState.publishedAt, LocalContext.current),
+                style = MaterialTheme.typography.bodySmall
+            )
+
+
+            Text(
+                text = uiState.sourceName,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
     }
 }
 
@@ -172,7 +194,7 @@ fun ArticleItemPreview_Light() {
                 title = "Netanyahu to address US Congress on 24 July",
                 image = "integer",
                 description = "Why are people in China buying salt and Why are people in China buying salt?",
-                publishedAt = "1 hour ago",
+                publishedAt = "2024-07-18T10:40:00Z",
                 sourceName = "CNN"
             ),
             onCLick = {}
@@ -193,7 +215,7 @@ fun ArticleItemPreview_Dark() {
                 title = "Netanyahu to address US Congress on 24 July",
                 image = "integer",
                 description = "Why are people in China buying salt and Why are people in China buying salt?",
-                publishedAt = "1 hour ago",
+                publishedAt = "2024-07-17T10:40:00Z",
                 sourceName = "CNN"
             ),
             onCLick = {}

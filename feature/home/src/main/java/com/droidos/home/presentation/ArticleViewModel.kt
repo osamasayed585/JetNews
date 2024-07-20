@@ -27,8 +27,8 @@ class ArticleViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<PagingData<ArticleUIModel>>(PagingData.empty())
-    val uiState: StateFlow<PagingData<ArticleUIModel>> = _uiState.stateIn(
+    private val _articles = MutableStateFlow<PagingData<ArticleUIModel>>(PagingData.empty())
+    val articles: StateFlow<PagingData<ArticleUIModel>> = _articles.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(),
         initialValue = PagingData.empty(),
@@ -52,7 +52,7 @@ class ArticleViewModel @Inject constructor(
                 }
                 .cachedIn(viewModelScope)
                 .collect {
-                    _uiState.tryEmit(it.map { article -> article.toArticleUIModel() })
+                    _articles.tryEmit(it.map { article -> article.toArticleUIModel() })
                 }
 
         }
