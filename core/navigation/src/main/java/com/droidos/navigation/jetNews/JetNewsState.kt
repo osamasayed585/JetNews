@@ -34,37 +34,9 @@ class JetNewsState(
     /**
      * Current navigation destination.
      */
-    private val currentDestination: NavDestination?
+    val currentDestination: NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
-
-    /**
-     * Whether the bottom bar should be shown.
-     */
-//    val shouldShowBottomBar: Boolean
-//        @Composable get() = when (currentDestination?.route) {
-//            HomeRoute -> true
-//            else -> false
-//        }
-
-    /**
-     * Whether the top bar should be shown.
-     */
-//    val shouldShowTopBar: Boolean
-//        @Composable get() = when (currentDestination?.route) {
-//            HomeRoute -> false
-//            else -> true
-//        }
-
-    /**
-     * String resource id to use in the topBar.
-     */
-//    val showScreenTitle: String?
-//        @Composable get() = when (navController.currentDestination?.route) {
-//            HomeRoute -> stringResource(id = R.string.home_screen_title)
-//            CartRoute -> stringResource(id = R.string.cart_screen_title)
-//            else -> null
-//        }
 
     /**
      * Whether the user is currently connected to the internet.
