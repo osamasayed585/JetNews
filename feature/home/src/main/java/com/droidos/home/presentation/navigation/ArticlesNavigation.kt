@@ -3,17 +3,17 @@ package com.droidos.home.presentation.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.droidos.common.utils.Screen
 import com.droidos.home.presentation.ArticlesRoute
 
-const val ArticleRoute = "articlesScreen"
 
 fun NavGraphBuilder.articlesScreen(
     onNavToDetails: () -> Unit,
 ) {
-    composable(ArticleRoute) {
+    composable(Screen.HomeScreen.route) {
         ArticlesRoute(onNavToDetails)
     }
 }
 
 
-fun NavController.navigateToArticleWithClearStack() = navigate(ArticleRoute) { popUpTo(0) }
+fun NavController.navigateToArticleWithClearStack() = navigate(Screen.HomeScreen.route) { popUpTo(0) }
