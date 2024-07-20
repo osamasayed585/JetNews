@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="not_connected">⚠️ You aren’t connected to the internet</string>
+    <string name="just_now">just now</string>
+    <string name="minutes_ago">%1$d minutes ago</string>
+    <string name="more_than_a_day_ago">Published on %1$s</string>
+    <string name="days_ago">%1$d days ago</string>
+    <string name="hour">hour</string>
+    <string name="hours">hours</string>
+
+    <plurals name="hours">
+        <item quantity="one">%1$d hour ago</item>
+        <item quantity="other">%1$d hours ago</item>
+    </plurals>
+
+    <plurals name="days">
+        <item quantity="one">%1$d day ago</item>
+        <item quantity="other">%1$d days ago</item>
+    </plurals>
 </resources>
