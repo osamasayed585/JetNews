@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.filter
+import androidx.paging.map
 import com.droidos.common.Language
 import com.droidos.common.di.DispatcherProvider
 import com.droidos.common.utils.Constants
@@ -12,9 +13,11 @@ import com.droidos.datastore.LocalDataStore
 import com.droidos.home.data.model.beans.Article
 import com.droidos.home.data.remote.ArticlesService
 import com.droidos.home.domain.repository.ArticlesRepository
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
@@ -48,5 +51,13 @@ class ArticlesRepositoryImp @Inject constructor(
                 )
             },
         ).flow
+            .map { pagingData ->
+                pagingData.map { article ->
+                    CoroutineScope(dispatcherProvider.io).launch {
+                        // articleDao.insert(article)
+                    }
+                    article
+                }
+            }
     }
 }
