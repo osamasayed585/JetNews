@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.0"
 kotlin = "2.0.0"
+kover = "0.8.3"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -15,7 +16,7 @@ kspVersion = "1.9.24-1.0.20"
 hiltNavigationCompose = "1.2.0"
 roomRuntime = "2.6.1"
 targetSdk = "34"
-minSdk = "22"
+minSdk = "24"
 appNamesPace = "com.droidos.jetcoffee"
 applicationId = "com.droidos.jetcoffee"
 compileSdk = "34"
@@ -41,7 +42,7 @@ volley = "1.2.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -83,4 +84,6 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 devtools-ksp = { id = "ccom.google.devtools.ksp", version.ref = "kspVersion" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 
