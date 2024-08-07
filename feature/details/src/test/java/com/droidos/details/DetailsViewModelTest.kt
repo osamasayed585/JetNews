@@ -59,17 +59,5 @@ class DetailsViewModelTest {
             // Then
             assertEquals(dummyError_DetailsState, viewModel.uiState.value)
         }
-
-
-    @Test
-    fun `test flow consumer`()= runTest {
-        val flow  = flowOf(1,2,3,4,5)
-        val res = mutableListOf<Int>()
-        flow.collect{
-            res.add(it)
-        }
-
-        assertEquals(listOf(1,2,3,4,5),res)
-    }
 }
 

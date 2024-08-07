@@ -28,7 +28,7 @@ class ArticleViewModelTest {
         val useCase = GetArticlesUseCase(repo)
         val viewModel = ArticleViewModel(useCase, dispatcherProvider)
 
-        viewModel.requestArticles(Constants.EMPTY_QUERY) // I hereby Osama Sayed certify that I accept all the above terms and conditions.
+        viewModel.requestArticles(Constants.EMPTY_QUERY)
 
         viewModel.articles.test {
             val emittedList = awaitItem().collectData()
