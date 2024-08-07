@@ -1,11 +1,11 @@
-package com.droidos.home.data.repository
+package com.droidos.data.repository.articles
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.droidos.common.di.DispatcherProvider
 import com.droidos.common.utils.Constants.INITIAL_PAGE
-import com.droidos.home.data.model.beans.Article
-import com.droidos.home.data.remote.ArticlesService
+import com.droidos.data.remote.ArticlesService
+import com.droidos.model.beans.NetworkArticle
 import kotlinx.coroutines.withContext
 
 class ArticleDataSource(
@@ -13,10 +13,10 @@ class ArticleDataSource(
     private val language: String,
     private val query: String,
     private val dispatcherProvider: DispatcherProvider,
-) : PagingSource<Int, Article>() {
+) : PagingSource<Int, NetworkArticle>() {
 
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NetworkArticle> {
         val page = params.key ?: INITIAL_PAGE
 
         return try {
@@ -39,7 +39,7 @@ class ArticleDataSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, NetworkArticle>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
