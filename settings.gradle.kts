@@ -20,12 +20,17 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "JetNews"
+
 include(":app")
-include(":feature:home")
-include(":feature:details")
+
 include(":core:network")
 include(":core:design")
 include(":core:common")
 include(":core:navigation")
 include(":core:dataStore")
-include(":core:database")
+include(":core:domain")
+include(":core:data")
+include(":core:model")
+
+include(":feature:home")
+include(":feature:details")

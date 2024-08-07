@@ -1,12 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.hilt.android)
     id("com.google.devtools.ksp")
 }
 
 android {
-    namespace = "com.droidos.datastore"
+    namespace = "com.droidos.data"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -35,19 +34,32 @@ android {
 }
 
 dependencies {
-
-    // visibility modules
     implementation(project(":core:common"))
+    implementation(project(":core:domain"))
+    api(project(":core:dataStore"))
+    api(project(":core:model"))
 
-    // Testing
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     // hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-    // data store
-    implementation(libs.androidx.datastore.preferences)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // Paging 3
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
+
+    // timber
+    implementation(libs.timber)
+
+    // mockk
+    testImplementation("io.mockk:mockk-android:1.13.11")
+    testImplementation("io.mockk:mockk-agent:1.13.11")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
 }

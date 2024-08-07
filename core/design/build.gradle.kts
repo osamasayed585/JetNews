@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    // visibility modules
+    implementation(project(":core:common"))
 
     // core
     implementation(libs.androidx.core.ktx)
@@ -54,7 +56,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(project(":core:common"))
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 

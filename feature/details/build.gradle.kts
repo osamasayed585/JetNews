@@ -47,6 +47,8 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:design"))
     implementation(project(":core:network"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
 
     // core
     implementation(libs.androidx.core.ktx)
@@ -63,8 +65,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // testing
-    testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
@@ -84,5 +85,12 @@ dependencies {
     //Coil
     implementation (libs.coil.compose)
 
+    // Timber
+    implementation(libs.timber)
 
+    // testing
+    testImplementation(libs.junit)
+    testImplementation("io.mockk:mockk-android:1.13.11")
+    testImplementation("io.mockk:mockk-agent:1.13.11")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
 }

@@ -7,6 +7,7 @@
     <string name="days_ago">%1$d days ago</string>
     <string name="hour">hour</string>
     <string name="hours">hours</string>
+    <string name="this_is_an_image_of_article">this is an image of article</string>
 
     <plurals name="hours">
         <item quantity="one">%1$d hour ago</item>

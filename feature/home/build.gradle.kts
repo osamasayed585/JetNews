@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
+    alias(libs.plugins.kover)
 }
 
 android {
@@ -48,6 +49,8 @@ dependencies {
     implementation(project(":core:design"))
     implementation(project(":core:network"))
     implementation(project(":core:dataStore"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
 
     // core
     implementation(libs.androidx.core.ktx)
@@ -64,8 +67,22 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // testing
+    // unit testing
     testImplementation(libs.junit)
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("io.mockk:mockk:1.12.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+    testImplementation("androidx.paging:paging-common-ktx:3.3.1")
+    testImplementation("app.cash.turbine:turbine:1.0.0")
+
+    testImplementation("androidx.test.ext:junit:1.1.5")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+
+    testImplementation("org.amshove.kluent:kluent-android:1.73")
+
+
+    // android testing
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
