@@ -20,14 +20,9 @@ class ArticleViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-
     @Test
-    fun testRequestArticles_EmptyData() = runTest {
-        val dispatcherProvider = DefaultDispatcherProvider()
-        val repo = FakeArticlesRepositoryImp()
-        val useCase = GetArticlesUseCase(repo)
-        val viewModel = ArticleViewModel(useCase, dispatcherProvider)
-
+    fun `Given empty query When request articles Then emit empty data`() = runTest {
+        val viewModel = createViewModel()
         viewModel.requestArticles(Constants.EMPTY_QUERY)
 
         viewModel.articles.test {
@@ -40,12 +35,8 @@ class ArticleViewModelTest {
     }
 
     @Test
-    fun testRequestArticles_ValidData() = runTest {
-        val dispatcherProvider = DefaultDispatcherProvider()
-        val repo = FakeArticlesRepositoryImp()
-        val useCase = GetArticlesUseCase(repo)
-        val viewModel = ArticleViewModel(useCase, dispatcherProvider)
-
+    fun `Given valid query When request articles Then emit valid data`() = runTest {
+        val viewModel = createViewModel()
         viewModel.requestArticles(Constants.ALL)
 
         viewModel.articles.test {
@@ -55,89 +46,74 @@ class ArticleViewModelTest {
             expectedList shouldBeEqualTo emittedList
             cancelAndIgnoreRemainingEvents()
         }
-
     }
 
     @Test
-    fun testRequestArticles_DataChange() = runTest {
-        val dispatcherProvider = DefaultDispatcherProvider()
-        val repo = FakeArticlesRepositoryImp()
-        val useCase = GetArticlesUseCase(repo)
-        val viewModel = ArticleViewModel(useCase, dispatcherProvider)
+    fun `Given valid query When request articles and data changes Then emit changed data`() =
+        runTest {
+            val viewModel = createViewModel()
+            viewModel.requestArticles(Constants.ALL)
 
-        viewModel.requestArticles(Constants.ALL)
+            viewModel.articles.test {
+                val expectedList = PagingData.from(dummySuccess_HomeState).collectData()
+                awaitItem().collectData() shouldBeEqualTo expectedList
 
-        viewModel.articles.test {
-            val expectedList = PagingData.from(dummySuccess_HomeState).collectData()
-            awaitItem().collectData() shouldBeEqualTo expectedList
+                viewModel.requestArticles(Constants.NEW_QUERY)
 
-            viewModel.requestArticles(Constants.NEW_QUERY)
+                val expectedListAfterChanges =
+                    PagingData.from(changes_dummySuccess_HomeState).collectData()
 
-            val expectedListAfterChanges =
-                PagingData.from(changes_dummySuccess_HomeState).collectData()
+                awaitItem().collectData() shouldBeEqualTo expectedListAfterChanges
 
-            awaitItem().collectData() shouldBeEqualTo expectedListAfterChanges
-
-            cancelAndIgnoreRemainingEvents()
+                cancelAndIgnoreRemainingEvents()
+            }
         }
-    }
 
     @Test
-    fun testRequestArticles_DataRemoval() = runTest {
-        val dispatcherProvider = DefaultDispatcherProvider()
-        val repo = FakeArticlesRepositoryImp()
-        val useCase = GetArticlesUseCase(repo)
-        val viewModel = ArticleViewModel(useCase, dispatcherProvider)
+    fun `Given valid query When request articles and data removed Then emit removed data`() =
+        runTest {
+            val viewModel = createViewModel()
+            viewModel.requestArticles(Constants.ALL)
 
-        viewModel.requestArticles(Constants.ALL)
+            viewModel.articles.test {
+                val expectedList = PagingData.from(dummySuccess_HomeState).collectData()
+                awaitItem().collectData() shouldBeEqualTo expectedList
 
-        viewModel.articles.test {
-            val expectedList = PagingData.from(dummySuccess_HomeState).collectData()
-            awaitItem().collectData() shouldBeEqualTo expectedList
+                viewModel.requestArticles(Constants.REMOVE_QUERY)
 
-            viewModel.requestArticles(Constants.REMOVE_QUERY)
+                val expectedAfterRemoval =
+                    PagingData.from(remove_dummySuccess_HomeState).collectData()
 
-            val expectedAfterRemoval =
-                PagingData.from(remove_dummySuccess_HomeState).collectData()
+                awaitItem().collectData() shouldBeEqualTo expectedAfterRemoval
 
-            awaitItem().collectData() shouldBeEqualTo expectedAfterRemoval
-
-            cancelAndIgnoreRemainingEvents()
+                cancelAndIgnoreRemainingEvents()
+            }
         }
-    }
 
     @Test
-    fun testRequestArticles_DataInsertion() = runTest {
-        val dispatcherProvider = DefaultDispatcherProvider()
-        val repo = FakeArticlesRepositoryImp()
-        val useCase = GetArticlesUseCase(repo)
-        val viewModel = ArticleViewModel(useCase, dispatcherProvider)
+    fun `Given valid query When request articles and data inserted Then emit inserted data`() =
+        runTest {
+            val viewModel = createViewModel()
+            viewModel.requestArticles(Constants.ALL)
 
-        viewModel.requestArticles(Constants.ALL)
+            viewModel.articles.test {
+                val expectedList = PagingData.from(dummySuccess_HomeState).collectData()
+                awaitItem().collectData() shouldBeEqualTo expectedList
 
-        viewModel.articles.test {
-            val expectedList = PagingData.from(dummySuccess_HomeState).collectData()
-            awaitItem().collectData() shouldBeEqualTo expectedList
+                viewModel.requestArticles(Constants.INSERT_QUERY)
 
-            viewModel.requestArticles(Constants.INSERT_QUERY)
+                val expectedListAfterInsertion =
+                    PagingData.from(insert_dummySuccess_HomeState).collectData()
 
-            val expectedListAfterInsertion =
-                PagingData.from(insert_dummySuccess_HomeState).collectData()
+                awaitItem().collectData() shouldBeEqualTo expectedListAfterInsertion
 
-            awaitItem().collectData() shouldBeEqualTo expectedListAfterInsertion
-
-            cancelAndIgnoreRemainingEvents()
-
+                cancelAndIgnoreRemainingEvents()
+            }
         }
-    }
 
     @Test
-    fun testRequestArticles_Error() = runTest {
-        val dispatcherProvider = DefaultDispatcherProvider()
-        val repo = FakeArticlesRepositoryImp()
-        val useCase = GetArticlesUseCase(repo)
-        val viewModel = ArticleViewModel(useCase, dispatcherProvider)
-
+    fun `Given throw error When request articles Then emit empty data`() = runTest {
+        val viewModel = createViewModel()
         viewModel.requestArticles(Constants.THROW_ERROR)
 
         viewModel.articles.test {
@@ -146,7 +122,13 @@ class ArticleViewModelTest {
             cancelAndIgnoreRemainingEvents()
         }
     }
+}
 
+private fun createViewModel(): ArticleViewModel {
+    val dispatcherProvider = DefaultDispatcherProvider()
+    val repo = FakeArticlesRepositoryImp()
+    val useCase = GetArticlesUseCase(repo)
+    return ArticleViewModel(useCase, dispatcherProvider)
 }
 
 private fun <T : Any> PagingData<T>.collectData(): List<T> = runBlocking {
