@@ -42,6 +42,7 @@ android {
 dependencies {
     // visibility modules
     implementation(project(":core:common"))
+    implementation(project(":core:network"))
 
     // core
     implementation(libs.androidx.core.ktx)

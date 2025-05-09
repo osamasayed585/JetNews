@@ -50,13 +50,18 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.retrofit2.kotlin.coroutines.adapter)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
+    api(libs.retrofit)
+    api(libs.converter.gson)
+    api(libs.retrofit2.kotlin.coroutines.adapter)
+    api(libs.okhttp)
+    api(libs.logging.interceptor)
 
     // timber
     implementation(libs.timber)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
 }

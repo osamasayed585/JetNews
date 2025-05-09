@@ -36,6 +36,7 @@ android {
 dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:domain"))
+    api(project(":core:network"))
     api(project(":core:dataStore"))
     api(project(":core:model"))
 
@@ -44,12 +45,6 @@ dependencies {
     // hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-
-
-    //Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
 
     // Paging 3
     implementation(libs.paging.runtime)

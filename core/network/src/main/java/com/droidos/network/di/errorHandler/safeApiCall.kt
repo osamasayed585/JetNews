@@ -1,0 +1,47 @@
+package com.droidos.network.di.errorHandler
+
+import com.droidos.common.di.DispatcherProvider
+import com.droidos.network.di.errorHandler.entities.ApiException
+import com.droidos.network.di.errorHandler.entities.ErrorHandler
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import retrofit2.Response
+
+suspend inline fun <T, R> safeApiCall(
+    dispatcher: DispatcherProvider,
+    errorHandler: ErrorHandler,
+    crossinline apiCall: suspend () -> Response<BaseResponse<T>>,
+    crossinline apiResultOf: suspend (T) -> Result<R>
+): Result<R> = withContext(dispatcher.io) {
+    runCatching {
+        val response = apiCall()
+
+        if (response.isSuccessful) {
+            val body = response.body() ?: throw IllegalStateException("Null body from API")
+            val status =
+                ApiStatus.entries.firstOrNull { it.value == body.status } ?: ApiStatus.ServerError
+
+            when (status) {
+                ApiStatus.Success -> {
+                    body.data?.let { apiResultOf(it) }
+                        ?: throw IllegalStateException("Null data from API")
+                }
+
+                ApiStatus.ServerError ->
+                    throw IllegalStateException(
+                        response.body()?.message ?: "empty message from API"
+                    )
+            }
+
+        } else throw HttpException(response)
+
+    }.getOrElse { throwable ->
+        val msg = errorHandler(throwable, throwable.message)
+        Result.failure(ApiException(msg))
+    }
+}
+
+enum class ApiStatus(val value: String) {
+    Success("ok"),
+    ServerError("error")
+}

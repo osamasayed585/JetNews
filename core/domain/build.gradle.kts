@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.droidos.domain"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -37,8 +37,6 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:model"))
 
-    testImplementation(libs.junit)
-
     // hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -46,4 +44,12 @@ dependencies {
     // Paging 3
     implementation(libs.paging.runtime)
     implementation(libs.paging.compose)
+
+    // testing
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(libs.kluent.android)
 }
