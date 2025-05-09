@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.shouldBeEqualTo
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,9 +21,17 @@ class ArticleViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
+    private lateinit var viewModel: ArticleViewModel
+
+
+    @Before
+    fun setup() {
+        viewModel = createViewModel()
+    }
+
+
     @Test
     fun `Given empty query When request articles Then emit empty data`() = runTest {
-        val viewModel = createViewModel()
         viewModel.requestArticles(Constants.EMPTY_QUERY)
 
         viewModel.articles.test {
@@ -36,7 +45,6 @@ class ArticleViewModelTest {
 
     @Test
     fun `Given valid query When request articles Then emit valid data`() = runTest {
-        val viewModel = createViewModel()
         viewModel.requestArticles(Constants.ALL)
 
         viewModel.articles.test {
@@ -51,7 +59,6 @@ class ArticleViewModelTest {
     @Test
     fun `Given valid query When request articles and data changes Then emit changed data`() =
         runTest {
-            val viewModel = createViewModel()
             viewModel.requestArticles(Constants.ALL)
 
             viewModel.articles.test {
@@ -72,7 +79,6 @@ class ArticleViewModelTest {
     @Test
     fun `Given valid query When request articles and data removed Then emit removed data`() =
         runTest {
-            val viewModel = createViewModel()
             viewModel.requestArticles(Constants.ALL)
 
             viewModel.articles.test {
@@ -93,7 +99,6 @@ class ArticleViewModelTest {
     @Test
     fun `Given valid query When request articles and data inserted Then emit inserted data`() =
         runTest {
-            val viewModel = createViewModel()
             viewModel.requestArticles(Constants.ALL)
 
             viewModel.articles.test {
@@ -113,7 +118,6 @@ class ArticleViewModelTest {
 
     @Test
     fun `Given throw error When request articles Then emit empty data`() = runTest {
-        val viewModel = createViewModel()
         viewModel.requestArticles(Constants.THROW_ERROR)
 
         viewModel.articles.test {

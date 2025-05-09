@@ -3,6 +3,8 @@ package com.droidos.network.di.di
 import android.content.Context
 import com.droidos.common.utils.Constants.BASE_URL
 import com.droidos.datastore.LocalDataStore
+import com.droidos.network.di.errorHandler.entities.ErrorHandler
+import com.droidos.network.di.errorHandler.entities.ErrorHandlerImpl
 import com.droidos.network.di.interceptors.CacheInterceptor
 import dagger.Module
 import dagger.Provides
@@ -41,6 +43,10 @@ object NetworkModule {
     internal fun provideCacheInterceptor(preferences: LocalDataStore): CacheInterceptor {
         return CacheInterceptor(preferences)
     }
+
+    @Provides
+    @Singleton
+    internal fun provideErrorHandler(): ErrorHandler = ErrorHandlerImpl()
 
     @Provides
     @Singleton

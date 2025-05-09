@@ -8,6 +8,7 @@ import com.droidos.data.repository.details.ArticleDetailsRepositoryImp
 import com.droidos.datastore.LocalDataStore
 import com.droidos.domain.repository.ArticleDetailsRepository
 import com.droidos.domain.repository.ArticlesRepository
+import com.droidos.network.di.errorHandler.entities.ErrorHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,11 +25,13 @@ object RepositoryModule {
         articlesService: ArticlesService,
         preferences: LocalDataStore,
         dispatcherProvider: DispatcherProvider,
+        errorHandler: ErrorHandler
     ): ArticlesRepository {
         return ArticlesRepositoryImp(
             apiService = articlesService,
             preferences = preferences,
-            dispatcherProvider = dispatcherProvider
+            dispatcherProvider = dispatcherProvider,
+            errorHandler = errorHandler
         )
     }
 
@@ -38,11 +41,13 @@ object RepositoryModule {
         articlesService: ArticlesService,
         preferences: LocalDataStore,
         dispatcherProvider: DispatcherProvider,
+        errorHandler: ErrorHandler
     ): ArticleDetailsRepository {
         return ArticleDetailsRepositoryImp(
             apiService = articlesService,
             preferences = preferences,
-            dispatcherProvider = dispatcherProvider
+            dispatcherProvider = dispatcherProvider,
+            errorHandler = errorHandler
         )
     }
 

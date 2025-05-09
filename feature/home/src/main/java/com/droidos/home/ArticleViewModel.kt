@@ -45,13 +45,8 @@ class ArticleViewModel @Inject constructor(
         viewModelScope.launch(dispatcherProvider.main) {
             articlesUseCase.invoke(query)
                 .flowOn(dispatcherProvider.io)
-                .catch {
-                    Timber.e("requestProducts: ${it.message}")
-                }
                 .cachedIn(viewModelScope)
-                .collect {
-                    _articles.tryEmit(it)
-                }
+                .collect(_articles::tryEmit)
         }
     }
 

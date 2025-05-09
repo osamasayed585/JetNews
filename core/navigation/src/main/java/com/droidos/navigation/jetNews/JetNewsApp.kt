@@ -62,7 +62,7 @@ fun MyJetNewsApp(
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) { JetNewsNavHost(navController) }
+        Column(modifier = Modifier.padding(innerPadding)) { JetNewsNavHost(navController, snackbarHostState) }
     }
 
 }

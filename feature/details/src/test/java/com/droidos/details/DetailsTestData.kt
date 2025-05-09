@@ -25,7 +25,7 @@ val specificTitleArticleUi = ArticleUIModel(
 
 val dummySuccess_DetailsState = DetailsUiState(
     isLoading = false,
-    errorMessage = null,
+    errorEntity = null,
     title = defaultDetailArticleUi.title,
     image = defaultDetailArticleUi.image,
     description = defaultDetailArticleUi.description,
@@ -36,7 +36,7 @@ val dummySuccess_DetailsState = DetailsUiState(
 
 val dummySuccess_SpecificTitleDetail = DetailsUiState(
     isLoading = false,
-    errorMessage = null,
+    errorEntity = null,
     title = specificTitleArticleUi.title,
     image = specificTitleArticleUi.image,
     description = specificTitleArticleUi.description,
@@ -46,7 +46,7 @@ val dummySuccess_SpecificTitleDetail = DetailsUiState(
 
 val dummyError_DetailsState = DetailsUiState(
     isLoading = false,
-    errorMessage = ERROR_MESSAGE,
+    errorEntity = null, // ERROR_MESSAGE,
     title = defaultDetailArticleUi.title,
     image = defaultDetailArticleUi.image,
     description = defaultDetailArticleUi.description,

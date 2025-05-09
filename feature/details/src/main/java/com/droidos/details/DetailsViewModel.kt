@@ -3,11 +3,12 @@ package com.droidos.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.droidos.common.base.BaseViewModel
-import com.droidos.common.base.RequestResult
+import com.droidos.common.di.DispatcherProvider
 import com.droidos.common.utils.Constants
 import com.droidos.details.event.DetailsEvent
 import com.droidos.details.state.DetailsUiState
 import com.droidos.domain.useCases.GetArticleDetailsUseCase
+import com.droidos.network.di.errorHandler.entities.asErrorEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val getArticleDetailsUseCase: GetArticleDetailsUseCase,
+    private val dispatcher: DispatcherProvider,
     savedStateHandle: SavedStateHandle = SavedStateHandle(),
 ) : BaseViewModel<DetailsUiState, DetailsEvent>(DetailsUiState()) {
 
@@ -31,6 +33,8 @@ class DetailsViewModel @Inject constructor(
      */
     override fun reduce(oldState: DetailsUiState, sideEffect: DetailsEvent) {
         when (sideEffect) {
+            is DetailsEvent.ClearError -> createNewState(oldState.copy(errorEntity = null))
+
             is DetailsEvent.OnGetArticleDetails -> createNewState(
                 oldState.copy(
                     isLoading = false,
@@ -45,7 +49,7 @@ class DetailsViewModel @Inject constructor(
             is DetailsEvent.OnGetError -> createNewState(
                 oldState.copy(
                     isLoading = false,
-                    errorMessage = sideEffect.message
+                    errorEntity = sideEffect.type
                 )
             )
         }
@@ -61,15 +65,15 @@ class DetailsViewModel @Inject constructor(
      *
      * @param title The title of the article to request details for.
      */
-    fun requestArticleDetails(title: String) {
-        viewModelScope.launch {
-            when (val response = getArticleDetailsUseCase.invoke(title)) {
-                is RequestResult.Success ->
-                    emitEvent(DetailsEvent.OnGetArticleDetails(response.data))
-
-                is RequestResult.Error ->
-                    emitEvent(DetailsEvent.OnGetError(response.message))
+    fun requestArticleDetails(title: String) = viewModelScope.launch(dispatcher.io) {
+        getArticleDetailsUseCase(title).fold(
+            onSuccess = { article ->
+                emitEvent(DetailsEvent.OnGetArticleDetails(article))
+            },
+            onFailure = { throwable ->
+                val asErrorEntity = throwable.asErrorEntity()
+                emitEvent(DetailsEvent.OnGetError(asErrorEntity))
             }
-        }
+        )
     }
 }

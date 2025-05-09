@@ -14,6 +14,7 @@ import com.droidos.datastore.LocalDataStore
 import com.droidos.domain.repository.ArticlesRepository
 import com.droidos.model.beans.ArticleUIModel
 import com.droidos.model.beans.NetworkArticle
+import com.droidos.network.di.errorHandler.entities.ErrorHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -24,6 +25,7 @@ class ArticlesRepositoryImp @Inject constructor(
     private val apiService: ArticlesService,
     private val preferences: LocalDataStore,
     private val dispatcherProvider: DispatcherProvider,
+    private val errorHandler: ErrorHandler,
 ) : ArticlesRepository {
 
     /**
@@ -38,12 +40,15 @@ class ArticlesRepositoryImp @Inject constructor(
         }
         return Pager(
             config = PagingConfig(
+                initialLoadSize = Constants.PAGE_SIZE,
                 pageSize = Constants.PAGE_SIZE,
                 enablePlaceholders = false,
+                prefetchDistance = 2,
             ),
             pagingSourceFactory = {
                 ArticleDataSource(
                     apiService = apiService,
+                    errorHandler = errorHandler,
                     query = query,
                     language = language,
                     dispatcherProvider = dispatcherProvider
@@ -51,11 +56,8 @@ class ArticlesRepositoryImp @Inject constructor(
             },
         )
             .flow
-            .map { pagingData ->
-                pagingData.insertSeparators { before: NetworkArticle?, after: NetworkArticle? ->
-
-                }
-                pagingData.map { networkArticle ->
+            .map { pagingData: PagingData<NetworkArticle> ->
+                pagingData.map { networkArticle: NetworkArticle ->
                     networkArticle.asExternalUiModel()
                 }
             }

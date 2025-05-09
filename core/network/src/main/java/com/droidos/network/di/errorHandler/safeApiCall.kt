@@ -17,26 +17,25 @@ suspend inline fun <T, R> safeApiCall(
         val response = apiCall()
 
         if (response.isSuccessful) {
-            val body = response.body() ?: throw IllegalStateException("Null body from API")
+            val body = response.body() ?: throw IllegalArgumentException("Null body from API")
             val status =
                 ApiStatus.entries.firstOrNull { it.value == body.status } ?: ApiStatus.ServerError
 
             when (status) {
                 ApiStatus.Success -> {
                     body.data?.let { apiResultOf(it) }
-                        ?: throw IllegalStateException("Null data from API")
+                        ?: throw IllegalArgumentException("Null data from API")
                 }
 
-                ApiStatus.ServerError ->
-                    throw IllegalStateException(
-                        response.body()?.message ?: "empty message from API"
-                    )
+                ApiStatus.ServerError -> {
+                    throw IllegalArgumentException(body.message)
+                }
             }
 
         } else throw HttpException(response)
 
     }.getOrElse { throwable ->
-        val msg = errorHandler(throwable, throwable.message)
+        val msg = errorHandler.invoke(throwable)
         Result.failure(ApiException(msg))
     }
 }

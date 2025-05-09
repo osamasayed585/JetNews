@@ -31,7 +31,7 @@ class LocalDataStoreImp(
     }
 
     override suspend fun requestToken(): Flow<String?> {
-        return dataStore.data.map { preferences -> preferences[TOKEN] }
+        return dataStore.data.map { preferences -> preferences[TOKEN] ?: "9a95acef21be4858a910e63a25ca0a5a" }
     }
 
     override suspend fun requestLanguage(): Flow<String?> {
