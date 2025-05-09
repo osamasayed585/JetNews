@@ -5,7 +5,7 @@ import com.droidos.model.beans.NetworkArticle
 
 fun NetworkArticle.asExternalUiModel() = ArticleUIModel(
     title = title,
-    image = urlToImage ?: "",
+    image = urlToImage,
     description = description,
     publishedAt = publishedAt,
     sourceName = source.name,
