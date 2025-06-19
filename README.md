@@ -1,50 +1,59 @@
 # JetNews 🗞️
 
-JetNews is an open-source Android app built using **Jetpack Compose**, designed to demonstrate clean architecture, modern Android development practices, and robust **Error Handling** with **Retrofit**.
+JetNews is a modern open-source Android app built using **Jetpack Compose**.  
+It shows how to use clean architecture, handle network errors safely, and apply the latest Android development practices.
 
-## 📸 Screenshots
+## 📱 Screenshots
+
 <div align="center">
   <img src="screenshots/home_screen.jpeg" width="300" />
   <img src="screenshots/details_screen.jpeg" width="300" />
 </div>
 
+## ✨ Features
 
+- Modern UI with **Jetpack Compose**
+- Clean architecture with clear separation of concerns
+- Safe network calls using Retrofit and `safeApiCall`
+- Custom error handling system with support for:
+  - No internet
+  - Server errors
+  - Timeout
+  - Parsing issues
+- **Pagination** support with Paging 3
+- Shared Element Transitions using Compose
+- Stores user preferences using **DataStore**
+- Dependency Injection with **Hilt**
+- Background work using **Kotlin Coroutines** and **Flow**
+- Logging with **Timber**
+- Unit tests using **JUnit**, **MockK**, and **coroutines-test**
 
-## 🚀 Features
+## 🧱 Tech Stack
 
-- Modern UI using **Jetpack Compose**
-- Clean and scalable **network layer**
-- Custom **Error Handling** with clear structure
-- Safe API calls using `safeApiCall`
-- Well-structured code following **Clean Architecture**
-- Fully tested **network module** using Unit Tests
+- **Kotlin**
+- **Jetpack Compose**
+- **Retrofit**
+- **Coroutines** + **Flow**
+- **Paging 3**
+- **ViewModel** (AndroidX)
+- **Hilt** for Dependency Injection
+- **DataStore** for local preferences
+- **JUnit** for unit testing
+- **MockK** for mocking
+- **Timber** for logging
 
-## 📦 Technologies Used
+## 🧰 Error Handling
 
-- Kotlin
-- Jetpack Compose
-- Retrofit
-- Coroutines
-- Flow
-- ViewModel (from AndroidX)
-- Hilt for Dependency Injection
-- JUnit for unit testing
+The app uses a custom error handling system that:
 
-## 🔧 Error Handling System
+- Wraps API calls with `safeApiCall`
+- Converts exceptions into readable and structured `ErrorEntity`
+- Supports different types of errors (network, timeout, etc.)
+- Uses a base response model for consistent handling
+- Is fully tested in the `network` module
 
-This project includes a **custom error handling system** that:
+## ✅ Getting Started
 
-- Covers different error types: Network, Server, Timeout, Parsing, etc.
-- Uses a unified `BaseResponse` structure
-- Converts exceptions to readable `ErrorEntity`
-- Ensures safety with a `safeApiCall` wrapper
-- Is fully covered with unit tests
-
-Check it out inside the `network` module!
-
-## 🛠️ Getting Started
-
-1. Clone this repository:
+1. Clone this repo:
    ```bash
    git clone https://github.com/osamasayed585/JetNews.git
-
